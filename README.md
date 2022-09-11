@@ -4,14 +4,15 @@
 ![Image: Nuxt3](banner.png "Nuxt3")
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-- [Nuxt 3 and Vuejs - the Canvas for Building your Event's App](#nuxt-3-and-vuejs---the-canvas-for-building-your-events-app)
+- [Nuxt 3 and Vuejs - a Canvas for Building your Web Apps](#nuxt-3-and-vuejs---a-canvas-for-building-your-web-apps)
+- [Why Nuxt and a Static app?](#why-nuxt-and-a-static-app)
 - [Initiatlize your Project](#initiatlize-your-project)
 - [Generate the content](#generate-the-content)
   - [Project Structure](#project-structure)
   - [Make it Beautiful](#make-it-beautiful)
   - [Land some Attendees](#land-some-attendees)
-- [Build and Deploy](#build-and-deploy)
-- [Github Pages For Hosting](#github-pages-for-hosting)
+- [Build The App](#build-the-app)
+- [Deploy t0 Github Pages](#deploy-t0-github-pages)
 - [GitActions for Automation](#gitactions-for-automation)
 - [Conclusion](#conclusion)
   - [References](#references)
@@ -189,7 +190,7 @@ Make our home page in *app.vue* even more beautiful:
 
 Now we buld our landing page according to the plan.
 
-# Build and Deploy
+# Build The App
 
 We will build a Static site generation (SSG), which means it pre-renders every route of our app so navigation happens organically through html pages. Nuxt does this with a crawler to generate each HTML file. Add these configurations to the **nuxt.config.ts** to hint that we want a full static, not and preview version - which would have fetch API calls to each static page:
 
@@ -209,7 +210,34 @@ export default defineNuxtConfig({
 ```
 Note the baseUrl configuration in both **router** and **app**. These will effect the final URL that Nuxt will create. This means that every image it encounters, or URL redirect it process, will be prepended with the **BASEURL**. In our case, it's */vue-nuxt-gh-staticlanding*, you will see the effect it has when we deploy to Github Pages, and the assets will be served by a subdomain named after our repo.
 
-# Github Pages For Hosting
+The repo has the majority of the assets needed to build a landing page, most are straight forward. Though you will notic a peculiarity when processing images:
+
+```tsx
+...
+<v-row align="center" justify="center">
+  <v-col
+    cols="12"
+    md="6"
+  >
+    ...
+    <v-img :src="contactUrl" class="rounded-lg" height="30vh" />
+  </v-col>
+</v-row>
+...
+<script>
+import contactImage from '~/assets/img/contact.png'
+
+export default {
+  data: () => ({
+    contactUrl: contactImage
+  })
+}
+</script>
+```
+
+All images are loaded via a script, not directly through the Veutify directives. This is because in this form, veuitfy transpiles these into HTML outside of **vite**'s processes and missing out on any preprocessing from Vite. But if we import it as code first, vite will add any baseurls we have preconfigured - hopefully something that will be solved in the future stable versions of Nuxt and Vue.
+
+# Deploy t0 Github Pages
 
 Time to deploy on github's static page hosting. To do this, we will use a plugin called push-dir, which will automatically configure our repo to host static pages and deploy our assets:
 
