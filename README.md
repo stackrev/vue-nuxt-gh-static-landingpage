@@ -1,4 +1,4 @@
-# Nuxt 3 and Vuejs - the Canvas for Building your Event's App 
+# Nuxt 3 and Vuejs - a Canvas for Building your Web Apps 
 
  <!-- title: Nuxt 3 and Vuejs - the Canvas for Building your Event's App  -->
 ![Image: Nuxt3](banner.png "Nuxt3")
@@ -17,29 +17,30 @@
   - [References](#references)
   - [Github](#github)
 
-NuxtJs is the defacto VueJs framework you would use to build your apps, these being Single Page App (SPA), Server-side Rendering (SSR), or Static-Site Generating (SSG). It's the latter that we will use to create an application for a sample event - to be forked by readers for their own landing pages.
+NuxtJs is the defacto VueJs framework used throughout the industry to build apps, these being Single Page App (SPA), Server-side Rendering (SSR), or Static-Site Generating (SSG). It's the latter that we will use to create web app for a sample event - to be forked by our readers for their own events' landing pages.
 
-Why Nuxt and a Static app? 
+# Why Nuxt and a Static app? 
 
-Nuxt simplifies and structures your projects, paving the path to enterprise-ready architecture with various CLIs and tools to boot. 
-We choose a Static app, because we want a Universal Application, which is discoverable and optimized for various search engines, plus the usecase here is simple with no external content to load or manipulate.
+Nuxt simplifies and structures of your projects, paving the path to enterprise-ready architecture with various CLIs and tools to boot. 
+We choose a Static app, because we want a **Universal Application**, which is discoverable and optimized for various search engines. The usecase here (a landing page for events) is simple with no external content to load or manipulate.
 
-The Nuxt shown here, is part of the release candidate 3, which is a major upgrade of the Nuxt used in the industry and wa released with VueJs' major update to version 3.
+The Nuxt version used here, is part of the release candidate 3, which is a major upgrade of the Nuxt used in the industry and following the release of VueJs' major update to version 3.
 
 # Initiatlize your Project
 
-For this project I will use *yarn* instead of *npm* to manage dependencies and build the app.
+For this project we will use *yarn* instead of *npm* to manage dependencies and build the app.
 
 To setup a project, nuxt offers a simple command to run within your node environment:
 
 `npx nuxi init app`
 
-Go to the *app* directory, and install all packages with using an  *yarn install*. Once this is done, run an *yarn dev* and navigate to *http://localhost:3000/* in your browser.
+Go to the *app* directory, and install all packages using *yarn install*. Once this is done, run an *yarn dev* and navigate to *http://localhost:3000/* in your browser.
 
 ![Image: Quickstart page on Brower](quickstart.PNG "Quickstart page on Brower")
 
-Since out of the box, nuxt3 comes with typescript, we should leverage the typing benefits by adding the required liraries and configuring type checkings. 
-Add the libraries with:
+Since out of the box, nuxt3 comes with typescript, we should leverage the typing benefits by adding the required libraries and configuring type checkings. 
+
+Add these libraries with:
 
 `yarn add -D vue-tsc typescript`
 
@@ -53,7 +54,7 @@ export default defineNuxtConfig({
 })
 ```
 
-run the eslint command `npx eslint --init` and go through the options to select vue and typescript to generate the correct eslint configuration file.
+Let's add some linting. Run the eslint command `npx eslint --init` and go through the options to select vue and typescript to generate the correct eslint configuration file.
 For nuxt3, this is how our *.eslintrc.yaml* is configured:
 
 ```yml
@@ -77,16 +78,16 @@ plugins:
   - '@typescript-eslint'
 ```
 
-Don't forget to add the **--fix** to the linting command created in your package.json.
+Don't forget to add the **--fix** to the linting command created in your package.json to automatically fix your styling.
 
 # Generate the content
 
 ## Project Structure
 
-Let's plan our event app. We know we want a landing page, a registration page with sends these somewhere and an articles page, so that our organizers can generate content to be displayed.
+Let's plan our event app. We know we want a landing page with a home containing basic information, a registration page and an about page with details.
 Breaking it down in a Nuxt structure, this is what we plan:
 
-- | *public*/: robots.txt and favicon.ico. These we will copy, nuxt won't touch them.
+- | *public*/: robots.txt and favicon.ico. Nuxt will simply copy these with no processing.
 - | *plugins*/: Additional libraries, in our case we will add Vuetify.
 - | *assets*/: Images and CSS we will deploy to the users. These will be packaged and altered with the baseurl.
   - | css
@@ -98,7 +99,7 @@ Breaking it down in a Nuxt structure, this is what we plan:
   - | *HomeSection.vue*: The main banner and any info.
 - | *app.vue*/: Our index page which will load all others.
 
-Let's start with a simple html section for our *app.vue*, to verify this setup works. We do this by replacing the default Nuxt3 *NuxtWelcome*:
+Time to load a simple html section for our *app.vue*, to verify this setup works. We do this by replacing the default Nuxt3 *NuxtWelcome* with this html:
 
 ```tsx
 <template>
@@ -113,7 +114,7 @@ Running the *yarn dev* should load a server pointing to the index page we just c
 
 ## Make it Beautiful
 
-Our app should be pretty, and what better way to do this than to add a *Vuetify* template:
+Our app should be pretty, and what better way to do this than through a *Vuetify* template:
 
 ```bash
 yarn add vuetify@next sass @mdi/font
@@ -138,7 +139,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```
 
-Extend *nuxt.config.ts* to include vuetify and some other nice things, like the favicon and metadata:
+Extend *nuxt.config.ts* to include vuetify, fonts and other nice things, like the favicon and metadata:
 
 ```ts
 export default defineNuxtConfig({
@@ -161,7 +162,7 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/vuetify.ts'],
 ```
 
-Let's make our home page beautiful in *app.vue* more beautiful:
+Make our home page in *app.vue* even more beautiful:
 
 ```tsx
 <template>
@@ -206,17 +207,17 @@ export default defineNuxtConfig({
   }
 })
 ```
-Note the baseUrl configuration in both **router** and **app**. These will effect the final URL that Nuxt will create. This means that every image it pages or URL redirect it process will be prepended with the **BASEURL**. In our case, it's */vue-nuxt-gh-staticlanding*, you will see the effect it has when we deploy to Github Pages, and the assets will be served by a subdomain named after our repo.
+Note the baseUrl configuration in both **router** and **app**. These will effect the final URL that Nuxt will create. This means that every image it encounters, or URL redirect it process, will be prepended with the **BASEURL**. In our case, it's */vue-nuxt-gh-staticlanding*, you will see the effect it has when we deploy to Github Pages, and the assets will be served by a subdomain named after our repo.
 
 # Github Pages For Hosting
 
-Let's deploy on github's static page hosting. To do this, we will use a plugin called push-dir, which will automatically configure our repo to host static pages and deploy our assets:
+Time to deploy on github's static page hosting. To do this, we will use a plugin called push-dir, which will automatically configure our repo to host static pages and deploy our assets:
 
 ```bash
-yarn add push-dir
+yarn add -D push-dir
 ```
 
-What this push-dir will do is a series of git commands to prepare your static app to be hosted, by creating an orphaned branch called gh-pages and deploying from it - and deleting it in the end:
+What this push-dir will do is batch a series of git commands to prepare your static app to be hosted, by creating an orphaned branch called *gh-pages* and deploying from it - and deleting it in the end:
 
 ```bash
 git checkout --orphan gh-pages PAGESNAME
@@ -229,7 +230,7 @@ git checkout -f master
 git branch -D gh-pages
 ```
 
-Now we generate the static pages and deploy:
+Generate the static pages and deploy:
 
 ```bash
 yarn generate
@@ -240,17 +241,19 @@ When the deployment is successful, your github repo settings should change to sh
 
 ![Image: GH Pages settings](ghPages.PNG "GH Pages settings")
 
-Navigate to the url shown in your github pages and see a 400 - WHAT?!
+Navigate to the url shown in your github pages, and you will see a 400 - WHAT?!
 
-This is a problem all those with nuxt will encouter. GH pages operates on a templating engine called **jekyll**. Jekyll ignore all dot files, like .git and .nuxt. Nuxt pages all your assets in an **.Nuxt**, therefore when GH pages looks at your site, it will ignore this folder and load nothing of the assets therein.
+This is a problem all those with nuxt will encouter. 
 
-To resolve this we create a **.nojekyll** file, to disable this templating engine, and let github pages load the **.nuxt **folder and its assets. If you create one (or use the touch command) in the assets folder, you can copy it in your *package.json*:
+GH pages operates on a templating engine called **jekyll**. Jekyll ignore all dot files, like .git and .nuxt. Nuxt processes and packages all your assets in an **.Nuxt**, therefore when GH pages looks at your site, it will ignore this folder and load nothing of the assets therein.
+
+To resolve this we create a **.nojekyll** file, to disable this templating engine, and let github pages load the **.nuxt** folder and its assets. If you create one (or use the touch command) in the assets folder, you can copy it in your *package.json*:
 
 ```json
 "deploy": "cp assets/.nojekyll ./dist &&push-dir --dir=dist --branch=gh-pages --cleanup --force"
 ```
 
-We are hoping that after the alpha version we testing of Nuxt 3, this would be out of the box.
+We are hoping that after the alpha version we tested of Nuxt 3, this feature would come out of the box.
 
 With the gap closed, let's deploy again our webapp, and navigating to the url we should see a healthy landing page:
 
@@ -258,10 +261,10 @@ With the gap closed, let's deploy again our webapp, and navigating to the url we
 
 # GitActions for Automation
 
-All good engineers despise manual tasks, and having to generate and deploy the app - that's 2 commands too much. 
+All good engineers despise manual tasks, and having to type in the commands to generate and deploy the app - that's two commands too much. 
 Let's utilize github's own CICD: GitActions, to automate this everytime we merge to the main branch.
 
-To create a pipeline, start by creating a **.github** folder and add the file **pages.yml**
+To create a pipeline, start by creating a **.github** folder and add the file **pages.yml**:
 
 ```yml
 name: Generate and Deploy to GHPages.
@@ -316,15 +319,16 @@ jobs:
           git config --global user.email "adamd1985@users.noreply.github.com"
           yarn deploy
 ```
-in general, you would want to use ready made github plugins:
+in general, you would want to use ready made git actions plugins:
 
 - **actions/checkout**: to check out the latest code
 - **actions/setup-node**: to create a node environment.
 - **actions/cache**: Optional, you'd want to cache some assets, not to recreate them, example the node_modules.
 
-We then add some scripts using the **run** syntax. In that file we have the run command to generate the static app and another to deploy. Note that the deploy adds some git config settings before, this is needed for the *push-dir *module to work.
+We add some scripts using the **run** syntax. In that file we have the run command to generate the static app, and another to deploy. Note that the deploy adds some git config settings before, this is needed for the *push-dir* module to work.
 
-Note these important configurations
+Note these important configurations below.
+
 ```yml
 ...
 on:
@@ -343,19 +347,18 @@ permissions:
 ```
 This allows the plugin *push-dir* to create the gh-pages branch and push to it to deploy the app.
 
-Now everytime you update your landing page, you will see this pipeline rolling it out:
+Now everytime you update your landing page, you will see the pipeline rolling your page out to the public:
 
 ![Image: Git actions pipelines](gitactions.PNG "Git actions pipelines")
 
 # Conclusion
 
 In this article we explored the new alpha versions of Nuxt3 and Vue3.
-We learned the various development patterns used for frontends, and leveraged the static webapp generation pattern through ther vue development framework nuxt.
+We learned the various development patterns used for frontends, and leveraged the static page generation pattern through the vue development framework nuxt.
 
 To automate our work, we used github pages for deployment and git actions as the CI/CD.
 
-Fork this repo and enjoy creating your events webapps!
-
+You can fork this repo and enjoy creating your events webapps!
 
 ## References
 
