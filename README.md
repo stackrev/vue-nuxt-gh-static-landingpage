@@ -345,10 +345,16 @@ This allows the plugin *push-dir* to create the gh-pages branch and push to it t
 
 Now everytime you update your landing page, you will see this pipeline rolling it out:
 
-
-
+![Image: Git actions pipelines](gitactions.PNG "Git actions pipelines")
 
 # Conclusion
+
+In this article we explored the new alpha versions of Nuxt3 and Vue3.
+We learned the various development patterns used for frontends, and leveraged the static webapp generation pattern through ther vue development framework nuxt.
+
+To automate our work, we used github pages for deployment and git actions as the CI/CD.
+
+Fork this repo and enjoy creating your events webapps!
 
 
 ## References
