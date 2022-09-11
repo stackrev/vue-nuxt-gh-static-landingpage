@@ -1,0 +1,13 @@
+@import 'maincss';
+
+$font-family: 'Libre Baskerville';
+
+$border-radius-root: 6px;
+$font-size-root: 14px;
+
+.v-application {
+    [class*="text-"] {
+        font-family: $font-family, sans-serif !important;
+        color: #131316;
+    }
+}

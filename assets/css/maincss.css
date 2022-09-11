@@ -1,0 +1,41 @@
+.svg-border-waves .v-image {
+    bottom: 0;
+    left: 0;
+    height: 3rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.white-box {
+    z-index: 0;
+    background-color: #f4f7f5;
+}
+
+.gray-box {
+    z-index: 0;
+    background-color: #b1aeb2;
+}
+
+.svg-border-waves img {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.card h1 {
+    margin-bottom: 10px;
+}
+
+section {
+    position: relative;
+}
+
+.lego-yellow{
+    background-color: #FFE330;
+    color: #FFE330;
+}
+
+html {
+    scroll-behavior: smooth;
+}
